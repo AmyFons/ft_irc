@@ -1,33 +1,39 @@
-#include "Server.hpp"
-#include <sys/socket.h>
+#include "core/Server.hpp"
+#include "core/User.hpp"
+#include "core/Channel.hpp"
 
-void Server::join(std::string channel, const User &client) {
-    std::map<std::string, Channel>::iterator it = _channels.find(channel);
-    if (it != _channels.end())
-        it->second.addClient(client);
+void Server::join(std::string nameChannel, User *client) {
+    std::map<std::string, Channel>::iterator it = _channels.find(nameChannel);
+    if (it != _channels.end()) {
+        it->second.addMember(client);
+        std::string message = " JOIN " + nameChannel + '\n';
+        broadcast(it->second, client, message);
+    }
     else {
         Channel channel(nameChannel);
-        channel.addClient(client);
+        channel.addMember(client);
         _channels.insert(std::make_pair(nameChannel, channel));
+        std::string message = " JOIN " + nameChannel + '\n';
+        broadcast(channel, client, message);
     }
 }
 
-void Server::join(std::string nameChannel, std::string key, const User &client) {
+void Server::join(std::string nameChannel, std::string key, User *client) {
     std::map<std::string, Channel>::iterator it = _channels.find(nameChannel);
     if (it != _channels.end()) {
-
         if (it->second.getKey() != key) {
-            std::string messageError = client + " cannot join the channel : key error\n";
-            // if (send(client.fd, messageError.c_str(), messageError.size(), 0) == -1)
-
+            notification(client, " cannot join the channel : key error\n");
             return ;
         }
-
-        it->second.addClient(client);
+        std::string message = " JOIN " + nameChannel + '\n';
+        broadcast(it->second, client, message);
+        it->second.addMember(client);
     }
     else {
         Channel channel(nameChannel, key);
-        channel.addClient(client);
+        channel.addMember(client);
         _channels.insert(std::make_pair(nameChannel, channel));
+        std::string message = " JOIN " + nameChannel + '\n';
+        broadcast(channel, client, message);
     }
 }

@@ -1,36 +1,32 @@
-#include <iostream>
-#include "Channel.hpp"
-#include <list>
+#include "ft_irc.hpp"
 
-int main(void) {
-	std::cout << "this is a great IRC." <<std::endl;
+int main(int ac, char **av) {
+	if (ac != 3)
+		return 1;
+(void)av;
+	// std::stringstream ss(av[1]);
+	// int port;
+	// ss >> port;
+	// std::string password = av[2];
+	// Server server(port, password);
 
-	Client client;
-	// std::list<Client> clientList;
-	Channel channel("bonjour");
-
-	std::cout << "added" << std::endl;
-	channel.addClient(client);
-	for (std::list<Client>::iterator it = channel._clientList.begin(); it != channel._clientList.end(); ++it) {
-		std::cout << (*it).getName() << std::endl;
-	}
-
-	channel.setOperator(client);
-
-	std::cout << channel.isClientOperator(client, channel) << std::endl;
-	std::cout << "erased" << std::endl;
-	channel.removeClient(client);
-	for (std::list<Client>::iterator it = channel._clientList.begin(); it != channel._clientList.end(); ++it) {
-		std::cout << (*it).getName() << std::endl;
-	}
+	// server.initServer();
+	// server.startLoop();
+	
+	// Parser::initCommandList();
+	
+	std::string line;
+	std::cout << "input > ";
+	std::getline(std::cin, line);
+	
+	Parser::parse(line);
+	std::cout << "Line parsed : " << std::endl;
+	std::cout << "\t- Prefix : " << Parser::getPrefix() << std::endl;
+	std::cout << "\t- Command : " << Parser::getCommand() << std::endl;
+	
+	std::vector<std::string> content = Parser::getParameters();
+	std::cout << "\t- Parameters : " << content << std::endl;
+	content = Parser::getTrailing();
+	std::cout << "\t- Trailing : " << content << std::endl;
+	// server.stopServer();
 }
-
-/*
-#include <list>
-
-std::list<Client> ClientList;
-
-std::list<Client>::iterator it;
-for (it = ClientList.begin(); it != .end(); it++)
-
-.empty*/

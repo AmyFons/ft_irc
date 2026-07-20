@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nile-dai <nile-dai@student.42.fr>          +#+  +:+       +#+         #
+#    By: afons <afons@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/13 08:07:33 by nile-dai          #+#    #+#              #
-#    Updated: 2026/07/13 08:35:33 by nile-dai         ###   ########.fr        #
+#    Updated: 2026/07/20 19:11:37 by afons            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		:= ft_irc
+NAME 		:= ircserv
 CXXFLAGS	:= -Wall -Wextra -Werror -g -std=c++98
 CXX			:= c++
 INC			:= -Iincludes
@@ -24,11 +24,24 @@ RED			:= \033[91m
 GREEN		:= \033[92m
 YELLOW		:= \033[93m
 
-# ~~ Sources files
+# ~~ Sources dir ~~
 SRC_DIR		:= src/
+BUF_DIR		:= $(SRC_DIR)buffer/
+NET_DIR		:= $(SRC_DIR)network/
+PARS_DIR	:= $(SRC_DIR)parser/
+CORE_DIR	:= $(SRC_DIR)core/
+
+# ~~ Sources files ~~
 SRC			:= \
 				$(SRC_DIR)main.cpp \
-				$(SRC_DIR)Channel.cpp
+				$(PARS_DIR)Parser/Parser.cpp \
+				$(PARS_DIR)Parser/ParserInit.cpp \
+				$(PARS_DIR)dispatcher/dispatcher.cpp \
+				$(CORE_DIR)Channel.cpp \
+				$(CORE_DIR)Server.cpp \
+				$(CORE_DIR)User.cpp \
+				$(SRC_DIR)Message.cpp \
+				$(SRC_DIR)Join.cpp
 
 # ~~ Objects ~~
 OBJ_DIR		:= obj/
