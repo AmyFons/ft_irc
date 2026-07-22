@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nile-dai <nile-dai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 15:54:54 by nile-dai          #+#    #+#             */
-/*   Updated: 2026/07/20 13:30:06 by nile-dai         ###   ########.fr       */
+/*   Updated: 2026/07/21 14:30:51 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <vector>
 
 class User;
-
+class Server;
 class Parser
 {
 	public:
@@ -59,10 +59,6 @@ class Parser
 			public: virtual const char *what() const throw() {return ("Error: invalid command.");}
 		};
 		
-		class CommandListNotInitException: public std::exception {
-			public: virtual const char *what() const throw() {return ("Parser Error: command list not init.");}
-		};
-		
 	private:
 		Parser() {}
 		~Parser() {}
@@ -91,4 +87,4 @@ class Parser
 std::ostream &operator<<(std::ostream &out, std::vector<std::string> &content);
 
 /* After parsing the user input, this function take the targer user and call the good command */
-void dispatchCommand(User &user);
+void dispatchCommand(Server &server, User &user);
