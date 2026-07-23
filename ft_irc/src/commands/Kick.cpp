@@ -6,7 +6,7 @@
 /*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 16:24:09 by afons             #+#    #+#             */
-/*   Updated: 2026/07/22 16:47:16 by afons            ###   ########.fr       */
+/*   Updated: 2026/07/23 14:05:46 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 #include "../core/Channel.hpp"
 #include "../core/User.hpp"
 #include <stdexcept>
+#include <iostream>
 
 void Server::kick(std::string nameChannel, std::string kicked, const User *op) {
+	std::cout << "KICK" << std::endl;
+
 	std::map<std::string, Channel>::iterator findChannel = _channels.find(nameChannel);
 	if (findChannel == _channels.end())
 		throw std::runtime_error("ERR_NOSUCHCHANNEL");
@@ -41,6 +44,7 @@ void Server::kick(std::string nameChannel, std::string kicked, const User *op) {
 }
 
 void Server::kick(std::string nameChannel, std::string kicked, std::string reason, const User *op) {
+	std::cout << "KICK WITH" << std::endl;
 	std::map<std::string, Channel>::iterator findChannel = _channels.find(nameChannel);
 	if (findChannel == _channels.end())
 		throw std::runtime_error("ERR_NOSUCHCHANNEL");

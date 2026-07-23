@@ -6,7 +6,7 @@
 /*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 21:13:26 by jdessoli          #+#    #+#             */
-/*   Updated: 2026/07/22 16:51:00 by afons            ###   ########.fr       */
+/*   Updated: 2026/07/23 13:32:08 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,4 +222,8 @@ const std::string& Server::getPassword() const { return _password; }
 Channel* Server::getChannelByName(const std::string& name) {
     std::map<std::string, Channel>::iterator it = _channels.find(name);
     return &it->second;
+}
+
+void Server::createChannel(const Channel &channel) {
+    _channels.insert(std::make_pair("#test", channel));
 }

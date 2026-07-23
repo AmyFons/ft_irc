@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Parser.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nile-dai <nile-dai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 16:23:16 by nile-dai          #+#    #+#             */
-/*   Updated: 2026/07/21 12:56:45 by nile-dai         ###   ########.fr       */
+/*   Updated: 2026/07/23 17:07:33 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,20 @@ void Parser::buildPrefix(User &user) {
 
 	if (user.isAuthenticated())
 		_prefix = user.getNickname() + "!" + user.getRealname() + "@" + user.getHostname();
+}
+
+std::vector<Channel> Parser::getlistChannel(std::string parameter) {
+	std::vector<Channel> listChannel;
+	int search = 0;
+	int pos;
+	while (pos = parameter.find(',', search) != parameter.size()) {
+		std::string str = parameter.substr(search, pos - search);
+		listChannel.push_back(Channel(str));
+		search = pos + 1;
+	}
+	if (pos < parameter.size()) {
+		std::string str = parameter.substr(search, pos - search);
+		listChannel.push_back(Channel(str));
+	}
+	return listChannel;
 }

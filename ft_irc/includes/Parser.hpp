@@ -6,7 +6,7 @@
 /*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 15:54:54 by nile-dai          #+#    #+#             */
-/*   Updated: 2026/07/21 14:30:51 by afons            ###   ########.fr       */
+/*   Updated: 2026/07/23 17:07:59 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ class Parser
 
 		/* Return the list of paramaters (no trailing) as vector */
 		static std::vector<std::string> getParameters( void ) {return (_parameters);}
+
+		static std::vector<Channel> Parser::getlistChannel(std::string parameter);
 
 		/* Return the trailing parameter as vector */
 		static std::vector<std::string> getTrailing( void ) {return (_trailing);}

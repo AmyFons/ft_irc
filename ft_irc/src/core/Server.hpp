@@ -6,7 +6,7 @@
 /*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 21:11:39 by jdessoli          #+#    #+#             */
-/*   Updated: 2026/07/22 15:56:23 by afons            ###   ########.fr       */
+/*   Updated: 2026/07/23 13:32:16 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ public:
 
     // --- Channel Management (For Person C) ---
     void     createChannel(const std::string& name, User* creator);
+    void     createChannel(const Channel &channel);
     void     removeChannel(const std::string& name);
     Channel* getChannelByName(const std::string& name);
 
