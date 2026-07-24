@@ -6,7 +6,7 @@
 /*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 15:54:54 by nile-dai          #+#    #+#             */
-/*   Updated: 2026/07/23 17:07:59 by afons            ###   ########.fr       */
+/*   Updated: 2026/07/24 16:18:41 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <vector>
 
 class User;
+class Channel;
 class Server;
 class Parser
 {
@@ -50,7 +51,8 @@ class Parser
 		/* Return the list of paramaters (no trailing) as vector */
 		static std::vector<std::string> getParameters( void ) {return (_parameters);}
 
-		static std::vector<Channel> Parser::getlistChannel(std::string parameter);
+		static std::vector<Channel> getlistChannel(std::string parameter);
+		static std::vector<std::string> getlistKey(std::string parameter);
 
 		/* Return the trailing parameter as vector */
 		static std::vector<std::string> getTrailing( void ) {return (_trailing);}
