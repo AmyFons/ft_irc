@@ -6,7 +6,7 @@
 /*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 09:32:14 by nile-dai          #+#    #+#             */
-/*   Updated: 2026/07/24 17:41:57 by afons            ###   ########.fr       */
+/*   Updated: 2026/07/27 18:07:39 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ static void	channelCommandsDispatch(Server &server, std::string command, User &u
 	std::vector<Channel> listChannel;
 	std::vector<std::string> listKey;
 	std::cout << command << std::endl;
-	if (command == "join") {
+	if (command == "JOIN") {
 		listChannel = Parser::getlistChannel(parameters[0]);
 		listKey = Parser::getlistKey(parameters[1]);
-		if (parameters.size() > 1)
-		
-			server.join(listChannel, listKey, &user);
+		if (parameters.size() > 1) {
+			server.join(listChannel, listKey, &user); }
 		else if (parameters.size() == 0)
 			throw std::runtime_error("Need a channel name.");
 		else
 			server.join(listChannel, &user);
 	}
-	if (command == "kick") {
+	if (command == "KICK") {
 		Channel *channel = server.getChannelByName(parameters[0]);
 		User *kicked = server.getUserByNickname(parameters[1]);
 		if (parameters.size() > 2)
@@ -41,10 +40,33 @@ static void	channelCommandsDispatch(Server &server, std::string command, User &u
 			throw std::runtime_error("Need a channel name.");
 		else if (parameters.size() == 1)
 			throw std::runtime_error("Need a nickname.");
-		else {
-			std::cout << parameters[0] << std::endl;
+		else
 			server.kick(*channel, kicked, &user);
-		}
+	}
+	if (command == "PART") {
+		listChannel = Parser::getlistChannel(parameters[0]);
+		if (parameters.size() > 1)
+			server.part(listChannel, parameters[1], &user);
+		else if (parameters.size() == 0)
+			throw std::runtime_error("Need a channel name.");
+		else
+			server.part(listChannel, parameters[1], &user);
+	}
+	if (command == "INVITE") {
+		Channel *channel = server.getChannelByName(parameters[1]);
+		if (parameters.size() != 2)
+			server.invite(parameters[0], *channel, &user);
+		else
+			throw std::runtime_error("Invalid command");
+	}
+	if (command == "TOPIC") {
+		Channel *channel = server.getChannelByName(parameters[0]);
+		if (parameters.size() > 1)
+			server.topic(*channel, parameters[1], &user);
+		else if (parameters.size() == 0)
+			throw std::runtime_error("Need a channel name.");
+		else
+			server.topic(*channel, &user);
 	}
 }
 

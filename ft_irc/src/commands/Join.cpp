@@ -2,6 +2,7 @@
 #include "../core/User.hpp"
 #include "../core/Channel.hpp"
 #include <stdexcept>
+#include <iostream>
 
 void Server::join(std::vector<Channel> &listChannel, User *client) {
 	for (std::vector<Channel>::iterator getChan = listChannel.begin(); getChan != listChannel.end(); ++getChan) {
@@ -51,6 +52,7 @@ void Server::join(std::vector<Channel> &listChannel, std::vector<std::string> &l
 				it->second.addMember(client);
 			}
 			else {
+				std::cout << listKey[i] << std::endl;
 				Channel channel(getChan->getName(), listKey[i]);
 				channel.addMember(client);
 				_channels.insert(std::make_pair(getChan->getName(), channel));
@@ -59,8 +61,8 @@ void Server::join(std::vector<Channel> &listChannel, std::vector<std::string> &l
 			}
 		}
 		else {
-			//MODIF : Envoyer la liste de channel a partir du moment ou y'a plus les keys
-			join(listChannel, client);
+			std::vector<Channel> restOfListChannel(getChan, listChannel.end()); 
+			join(restOfListChannel, client);
 			return ;
 		}
 		++i;

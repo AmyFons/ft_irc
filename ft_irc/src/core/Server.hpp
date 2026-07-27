@@ -6,7 +6,7 @@
 /*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 21:11:39 by jdessoli          #+#    #+#             */
-/*   Updated: 2026/07/24 17:16:30 by afons            ###   ########.fr       */
+/*   Updated: 2026/07/27 16:26:27 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,14 @@ public:
     void join(std::vector<Channel> &listChannel, User *client);
     void kick(Channel &channel, User *kicked, const User *op);
     void kick(Channel &channel, User *kicked, std::string reason, const User *op);
+    void topic(const Channel &channel, User *user);
+    void topic(Channel &channel, std::string newTopic, User *user);
+    void part(std::vector<Channel> &channels, User *user);
+    void part(std::vector<Channel> &channels, std::string reason, User *user);
+    void invite(const std::string &nickname, Channel &channel, const User *user);
 
     // Message
+    void broadcastServer(std::string message);
     void broadcast(const Channel &channel, std::string message);
     void broadcast(const Channel &channel, const User *user, std::string message);
     void notification(const User *user, std::string message);
