@@ -6,7 +6,7 @@
 /*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 16:23:16 by nile-dai          #+#    #+#             */
-/*   Updated: 2026/07/24 16:20:02 by afons            ###   ########.fr       */
+/*   Updated: 2026/07/28 15:11:50 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ void Parser::buildPrefix(User &user) {
 std::vector<Channel> Parser::getlistChannel(std::string parameter) {
 	std::vector<Channel> listChannel;
 	int search = 0;
-	size_t pos;
-	while ((pos = parameter.find(',', search) != parameter.size())) {
+	size_t pos = 0;
+	while ((pos != parameter.npos)) {
+		pos = parameter.find(',', search);
 		std::string str = parameter.substr(search, pos - search);
 		listChannel.push_back(Channel(str));
 		search = pos + 1;
@@ -119,8 +120,9 @@ std::vector<Channel> Parser::getlistChannel(std::string parameter) {
 std::vector<std::string> Parser::getlistKey(std::string parameter) {
 	std::vector<std::string> listKey;
 	int search = 0;
-	size_t pos;
-	while ((pos = parameter.find(',', search) != parameter.size())) {
+	size_t pos = 0;
+	while ((pos != parameter.npos)) {
+		pos = parameter.find(',', search);
 		std::string str = parameter.substr(search, pos - search);
 		listKey.push_back(str);
 		search = pos + 1;
