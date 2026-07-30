@@ -31,7 +31,6 @@ int main(int ac, char **av) {
 
 	// TEST JOIN
 	std::cout << server.getChannelByName("#general") << std::endl;
-	std::cout << "MDP : " << server.getChannelByName("#general")->getKey() << std::endl;
 
 	// TEST KICK
 	std::cout << server.getUserById(user.getFd());

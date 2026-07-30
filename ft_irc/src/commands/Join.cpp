@@ -2,7 +2,6 @@
 #include "../core/User.hpp"
 #include "../core/Channel.hpp"
 #include <stdexcept>
-#include <iostream>
 
 void Server::join(std::vector<Channel> &listChannel, User *client) {
 	for (std::vector<Channel>::iterator getChan = listChannel.begin(); getChan != listChannel.end(); ++getChan) {
@@ -10,7 +9,6 @@ void Server::join(std::vector<Channel> &listChannel, User *client) {
 		if (it->second.isInviteOnly() && !it->second.isInvited(client->getFd())) {
 			throw std::runtime_error("ERR_INVITEONLYCHAN");
 		}
- 
 		if (it->second.getUserLimit() != -1 && it->second.getMemberCount() > it->second.getUserLimit()) {
 			throw std::runtime_error("ERR_CHANNELISFULL");
 		}
@@ -36,14 +34,9 @@ void Server::join(std::vector<Channel> &listChannel, std::vector<std::string> &l
 	for (std::vector<Channel>::iterator getChan = listChannel.begin(); getChan != listChannel.end(); ++getChan) {
 		if (i < listKey.size()) {
 			std::map<std::string, Channel>::iterator it = _channels.find(getChan->getName());
-			if (it == _channels.end())
-				return ;
 			if (it->second.isInviteOnly() && !it->second.isInvited(client->getFd())) {
-				throw std::runtime_error("ERR_INVITEONLYCHAN");
+			throw std::runtime_error("ERR_INVITEONLYCHAN");
 			}
-
-			std::cout << "LIMIT: " << it->second.getUserLimit() << std::endl;
-
 			if (it->second.getUserLimit() != -1 && it->second.getMemberCount() > it->second.getUserLimit()) {
 				throw std::runtime_error("ERR_CHANNELISFULL");
 			}
@@ -58,7 +51,6 @@ void Server::join(std::vector<Channel> &listChannel, std::vector<std::string> &l
 				it->second.addMember(client);
 			}
 			else {
-				std::cout << listKey[i] << std::endl;
 				Channel channel(getChan->getName(), listKey[i]);
 				channel.addMember(client);
 				_channels.insert(std::make_pair(getChan->getName(), channel));

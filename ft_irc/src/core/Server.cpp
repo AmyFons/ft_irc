@@ -6,7 +6,7 @@
 /*   By: afons <afons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 21:13:26 by jdessoli          #+#    #+#             */
-/*   Updated: 2026/07/26 15:39:38 by afons            ###   ########.fr       */
+/*   Updated: 2026/07/30 19:17:05 by afons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,3 +227,7 @@ Channel* Server::getChannelByName(const std::string& name) {
 void Server::createChannel(const Channel &channel) {
     _channels.insert(std::make_pair("#test", channel));
 }
+
+//DEBUG
+void Server::addChannel(Channel &channel)
+{ _channels.insert(std::make_pair(channel.getName(), channel));}
