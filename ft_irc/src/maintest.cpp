@@ -45,7 +45,7 @@ int main()
 
     server.addChannel(channel);
     std::vector<std::string> modestring;
-    modestring.push_back("+-il-o");
+    modestring.push_back("+----il+l");
     // modestring.push_back("i");
     server.mode(channel, modestring, alice);
     return 0;
